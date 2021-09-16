@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 class GuestController extends Controller
 {
     //hi there
+
+    function l(){
+
+    }
     function  walkinview(){
         $programmes=programme::all();
         return view('create_walkin',['programmes'=>$programmes]);
