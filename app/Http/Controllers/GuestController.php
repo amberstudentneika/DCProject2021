@@ -8,20 +8,39 @@ use Illuminate\Support\Facades\DB;
 
 class GuestController extends Controller
 {
-    //
+    //hi there
     function  walkinview(){
         $programmes=programme::all();
         return view('create_walkin',['programmes'=>$programmes]);
     }
 
     function  walkin(Request $req){
-    $pt=$req->pt;
-    $gn=$req->gname;
-    $dt=$req->date;
+//    $gt=$req->gtype;
+//    $d=$req->date;
+//    $ad=$req->adult;
+//    $ch=$req->child;
+//    $p=$req->pid;
+//
+//        $fn=$req->fname;
+//        $ln=$req->lname;
 
-//    dd($a);
-    $data=DB::table('programmes')->where('programme_id','=',$req->programme)->get();
+        DB::table('guests')->insert([
+            'fname' => $req->fname,
+            'lname' =>$req->lname,
+            'guest_id' => random_int(100, 1000)
+        ]);
 
-      return view('pay',compact('data'),['ptype'=>$pt, 'gname'=>$gn, 'date'=>$dt]);
+
+  DB::table('bookings')->insert([
+      'excursion_date' => $req->date,
+      'guest_type' =>$req->gtype,
+      'adult' =>$req->adult,
+      'child' =>$req->child,
+      'programme_id' => $req->pid
+  ]);
+
+
+
+      return view('pay');
     }
 }
